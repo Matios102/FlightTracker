@@ -1,0 +1,15 @@
+/Users/mateuszosik/repos/Ood/FlightProject/bin/Debug/net5.0/FlightProject
+/Users/mateuszosik/repos/Ood/FlightProject/bin/Debug/net5.0/FlightProject.deps.json
+/Users/mateuszosik/repos/Ood/FlightProject/bin/Debug/net5.0/FlightProject.runtimeconfig.json
+/Users/mateuszosik/repos/Ood/FlightProject/bin/Debug/net5.0/FlightProject.runtimeconfig.dev.json
+/Users/mateuszosik/repos/Ood/FlightProject/bin/Debug/net5.0/FlightProject.dll
+/Users/mateuszosik/repos/Ood/FlightProject/bin/Debug/net5.0/FlightProject.pdb
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net5.0/FlightProject.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net5.0/FlightProject.AssemblyInfoInputs.cache
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net5.0/FlightProject.AssemblyInfo.cs
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net5.0/FlightProject.csproj.CoreCompileInputs.cache
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net5.0/FlightProject.dll
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net5.0/refint/FlightProject.dll
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net5.0/FlightProject.pdb
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net5.0/FlightProject.genruntimeconfig.cache
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net5.0/ref/FlightProject.dll

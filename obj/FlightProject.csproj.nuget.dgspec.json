@@ -1,0 +1,59 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/mateuszosik/repos/Ood/FlightProject/FlightProject.csproj": {}
+  },
+  "projects": {
+    "/Users/mateuszosik/repos/Ood/FlightProject/FlightProject.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/mateuszosik/repos/Ood/FlightProject/FlightProject.csproj",
+        "projectName": "FlightProject",
+        "projectPath": "/Users/mateuszosik/repos/Ood/FlightProject/FlightProject.csproj",
+        "packagesPath": "/Users/mateuszosik/.nuget/packages/",
+        "outputPath": "/Users/mateuszosik/repos/Ood/FlightProject/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/mateuszosik/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
