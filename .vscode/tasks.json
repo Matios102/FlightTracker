@@ -1,12 +1,16 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "CopyDataFiles",
-        "type": "shell",
-        "command": "cp",
-        "args": ["-R", "${workspaceFolder}/Data", "${workspaceFolder}/bin/Debug/net8.0"]
-      }
-    ]
-  }
-  
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CopyDataFiles",
+      "type": "shell",
+      "command": "cp",
+      "args": ["-R", "${workspaceFolder}/Data", "${workspaceFolder}/bin/Debug/net8.0"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}
