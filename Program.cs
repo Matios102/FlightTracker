@@ -12,29 +12,27 @@ namespace FlightProject
     {
         static void Main()
         {
-            string filePath = "./example_data.ftr.txt";
-                List<BaseObject> objectList = FileReader.ReadFTRFile(filePath);
-
-                List<Dictionary<string, object>> typedObjectList = new List<Dictionary<string, object>>();
-
-                foreach (var obj in objectList)
+            string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+            string filePath = Path.Combine(dataFolderPath, "example_data.ftr.txt");
+            
+            List<BaseObject> objectList = FileReader.ReadFTRFile(filePath);
+            List<Dictionary<string, object>> typedObjectList = new List<Dictionary<string, object>>();
+            foreach (var obj in objectList)
+            {
+                var typedObject = new Dictionary<string, object>
                 {
-                    var typedObject = new Dictionary<string, object>
-                    {
-                        { "type", obj.GetType().Name},
-                        { "data", obj }
-                    };
-
-                    typedObjectList.Add(typedObject);
-                }
-                var jsonSerializerOptions = new JsonSerializerOptions
-                {
-                    WriteIndented = true
+                    { "type", obj.GetType().Name},
+                    { "data", obj }
                 };
-                string jsonContent = JsonSerializer.Serialize(typedObjectList, jsonSerializerOptions);
-                File.WriteAllText("FlightObjects.json", jsonContent);
-
-                Console.WriteLine("JSON file created successfully.");
+                typedObjectList.Add(typedObject);
+            }
+            var jsonSerializerOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+            string jsonContent = JsonSerializer.Serialize(typedObjectList, jsonSerializerOptions);
+            File.WriteAllText("FlightObjects.json", jsonContent);
+            Console.WriteLine("JSON file created successfully.");
         }
     }
 
