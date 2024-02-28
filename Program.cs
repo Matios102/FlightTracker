@@ -12,8 +12,10 @@ namespace FlightProject
     {
         static void Main()
         {
-            string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
-            string filePath = Path.Combine(dataFolderPath, "example_data.ftr.txt");
+            string fileName = "example_data.ftr.txt";
+            string AssentsFolderName = "Data";
+            string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AssentsFolderName);
+            string filePath = Path.Combine(dataFolderPath, fileName);
             
             List<BaseObject> objectList = FileReader.ReadFTRFile(filePath);
             List<Dictionary<string, object>> typedObjectList = new List<Dictionary<string, object>>();
