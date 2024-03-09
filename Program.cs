@@ -24,7 +24,7 @@ namespace FlightProject
             Serializer.JSONSerializer(objectList, jsonFileName);
 
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            var networkSource = new NetworkSourceSimulator.NetworkSourceSimulator(filePath, 1, 2);
+            var networkSource = new NetworkSourceSimulator.NetworkSourceSimulator(filePath, 300, 500);
             Snapshot snapshot = new Snapshot();
 
             networkSource.OnNewDataReady += (sender, e) => Snapshot.snapshotManager(sender, e, networkSource);
