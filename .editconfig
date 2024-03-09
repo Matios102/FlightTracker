@@ -1,0 +1,34 @@
+# EditorConfig helps developers define and maintain consistent coding styles
+# across different editors and IDEs
+
+# Top-most EditorConfig file
+root = true
+
+# Set the default charset
+[*]
+charset = utf-8
+
+# Indentation settings
+[*.js]
+indent_style = space
+indent_size = 2
+
+[*.py]
+indent_style = space
+indent_size = 4
+
+[*.java]
+indent_style = tab
+indent_size = 4
+
+# End of line settings
+[*]
+end_of_line = lf
+
+# Trim trailing whitespace
+[*]
+trim_trailing_whitespace = true
+
+# Ensure a newline at the end of the file
+[*]
+insert_final_newline = true

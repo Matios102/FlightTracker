@@ -2,7 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using NetworkSourceSimulator;
+
 
 
 
@@ -13,29 +16,26 @@ namespace FlightProject
         static void Main()
         {
             string fileName = "example_data.ftr.txt";
+            string jsonFileName = "FlightObjects.json";
             string AssentsFolderName = "Data";
             string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AssentsFolderName);
             string filePath = Path.Combine(dataFolderPath, fileName);
-            
+
             List<BaseObject> objectList = FileReader.ReadFTRFile(filePath);
-            List<Dictionary<string, object>> typedObjectList = new List<Dictionary<string, object>>();
-            foreach (var obj in objectList)
-            {
-                var typedObject = new Dictionary<string, object>
-                {
-                    { "type", obj.GetType().Name},
-                    { "data", obj }
-                };
-                typedObjectList.Add(typedObject);
-            }
-            var jsonSerializerOptions = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
-            string jsonContent = JsonSerializer.Serialize(typedObjectList, jsonSerializerOptions);
-            File.WriteAllText("FlightObjects.json", jsonContent);
-            Console.WriteLine("JSON file created successfully.");
+            Serializer.JSONSerializer(objectList, jsonFileName);
+
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            var networkSource = new NetworkSourceSimulator.NetworkSourceSimulator(filePath, 1, 2);
+            Snapshot snapshot = new Snapshot();
+
+            networkSource.OnNewDataReady += (sender, e) => Snapshot.snapshotManager(sender, e, networkSource);
+
+            var networkTask = new Task(networkSource.Run);
+            networkTask.Start();
+
+            snapshot.ListenForCommands();
+            networkTask.Wait(100);
         }
     }
-
 }
+

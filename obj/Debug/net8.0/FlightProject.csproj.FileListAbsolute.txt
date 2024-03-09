@@ -13,3 +13,6 @@
 /Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net8.0/FlightProject.genruntimeconfig.cache
 /Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net8.0/ref/FlightProject.dll
 /Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net8.0/FlightProject.sourcelink.json
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net8.0/FlightProject.csproj.AssemblyReference.cache
+/Users/mateuszosik/repos/Ood/FlightProject/bin/Debug/net8.0/NetworkSourceSimulator.dll
+/Users/mateuszosik/repos/Ood/FlightProject/obj/Debug/net8.0/FlightProject.csproj.CopyComplete

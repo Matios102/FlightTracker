@@ -1,10 +1,11 @@
 using System;
+using System.Text;
 
 namespace FlightProject
 {
     public class CargoFactory : Factory
     {
-        public override BaseObject Create(string[] values)
+        public override Cargo Create(string[] values)
         {
             if (values.Length <  5)
             {

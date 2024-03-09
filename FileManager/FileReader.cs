@@ -1,21 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using FlightProject.FileManager;
 
 namespace FlightProject
 {
-    public class FileReader
+    public class FileReader : baseFileManager
     {
-        public static readonly Dictionary<string, Factory> FactoryParser = new Dictionary<string, Factory>
-        {
-            { "C", new CrewFactory() },
-            { "P", new PassengerFactory() },
-            { "CA", new CargoFactory() },
-            { "CP", new CargoPlaneFactory() },
-            { "PP", new PassengerPlaneFactory() },
-            { "AI", new AirportFactory() },
-            { "FL", new FlightFactory() }
-        };
 
         public static List<BaseObject> ReadFTRFile(string filePath)
         {

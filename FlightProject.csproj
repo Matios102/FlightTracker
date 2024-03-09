@@ -6,5 +6,11 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors>CS0169;CS0219</WarningsAsErrors>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NetworkSimulator">
+      <HintPath>./lib/NetworkSourceSimulator.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 </Project>

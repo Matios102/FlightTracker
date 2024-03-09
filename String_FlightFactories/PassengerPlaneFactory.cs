@@ -1,10 +1,11 @@
 using System;
+using System.Text;
 
 namespace FlightProject
 {
     public class PassengerPlaneFactory : Factory
     {
-        public override PassegnerPlane Create(string[] values)
+        public override PassengerPlane Create(string[] values)
         {
 
             if (values.Length < 8)
@@ -12,7 +13,7 @@ namespace FlightProject
                 throw new ArgumentException("invalid values");
             }
 
-                PassegnerPlane passegnerPlane = new PassegnerPlane
+                PassengerPlane passegnerPlane = new PassengerPlane
                 {
                     ID = UInt64.Parse(values[1]),
                     Serial = values[2],

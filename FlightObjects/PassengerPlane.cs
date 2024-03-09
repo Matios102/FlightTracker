@@ -1,7 +1,7 @@
 using System;
 namespace FlightProject
 {
-    public class PassegnerPlane : BaseObject
+    public class PassengerPlane : BaseObject
     {
         public String Serial {get; set;}
         public String ISO {get; set;}
