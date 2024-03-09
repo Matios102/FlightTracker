@@ -101,7 +101,6 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
-*.vscode
 *.DS_Store
 *.editconfig
 *.gitignore
