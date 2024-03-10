@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 
@@ -81,7 +80,7 @@ namespace FlightProject
                 LoadIDs = loadIDs
             };
 
-            //Set the paramiters that are not in the byte array as a deault value for now
+            //Set the paramiters that are not in the byte array as a default value for now
             flight.Latitude = 0.0f;
             flight.Longitude = 0.0f;
             flight.AMSL = 0.0f;
