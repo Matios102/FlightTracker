@@ -8,7 +8,7 @@ using Mapsui.Projections;
 public class Flight_FlightsGUIData_Adapter
 {
     public FlightsGUIData FlightData;
-    private Timer timer;
+    private Timer updateTimer;
     private List<Flight> flightsList = new List<Flight>();
     private List<double> speeds = new List<double>();
     private List<double> distances = new List<double>();
@@ -16,16 +16,18 @@ public class Flight_FlightsGUIData_Adapter
 
     public Flight_FlightsGUIData_Adapter()
     {
-        timer = new Timer(0.001);
-        timer.Elapsed += onTimerEvent;
+        updateTimer = new Timer(1000);
+        updateTimer.Elapsed += onTimerEventUpdate;
     }
 
-    private void onTimerEvent(object source, ElapsedEventArgs e)
+    private void onTimerEventUpdate(object source, ElapsedEventArgs e)
     {
         AddFlights(Snapshot.objectList);
         FlightData = ConvertData(flightsList);
         MovePlanes();
     }
+
+
     private void AddFlights(List<BaseObject> objectList)
     {
         for (int i = 0; i < objectList.Count; i++)
@@ -33,10 +35,11 @@ public class Flight_FlightsGUIData_Adapter
             if (objectList[i] is Flight)
             {
                 Flight flight = objectList[i] as Flight;
-                if(flightsList.Contains(flight))
+                if (flightsList.Contains(flight))
                 {
                     continue;
                 }
+
                 Console.WriteLine("Adding new flight, ID: " + flight.ID);
                 flightsList.Add(flight);
                 InitializeParamiters(flight);
@@ -45,7 +48,7 @@ public class Flight_FlightsGUIData_Adapter
     }
     public void Update()
     {
-        timer.Start();
+        updateTimer.Start();
         while (true)
         {
             Runner.UpdateGUI(FlightData);
@@ -80,8 +83,16 @@ public class Flight_FlightsGUIData_Adapter
 
     private void MovePlanes()
     {
+        DateTime currentTime = DateTime.Now;
         for (int i = 0; i < flightsList.Count; i++)
         {
+            DateTime takeOffDateTime = DateTime.ParseExact(flightsList[i].TakeOffTime, "HH:mm", null);
+            if(currentTime < takeOffDateTime)
+            {
+                 continue;
+            }
+
+
             double currentX, currentY;
 
             (currentX, currentY) = SphericalMercator.FromLonLat((double)flightsList[i].Longitude, (double)flightsList[i].Latitude);
@@ -98,6 +109,8 @@ public class Flight_FlightsGUIData_Adapter
 
             if (isAtDestination(flightsList[i], currentX, currentY))
             {
+                flightsList[i].Longitude = flightsList[i].Target.Longitude;
+                flightsList[i].Latitude = flightsList[i].Target.Latitude;
                 continue;
             }
 
@@ -108,7 +121,7 @@ public class Flight_FlightsGUIData_Adapter
 
 
 
-    private  double CalculateDurationInSeconds(Flight flight)
+    private double CalculateDurationInSeconds(Flight flight)
     {
         DateTime takeOffDateTime = DateTime.ParseExact(flight.TakeOffTime, "HH:mm", null);
         DateTime landingDateTime = DateTime.ParseExact(flight.LandingTime, "HH:mm", null);
@@ -125,7 +138,7 @@ public class Flight_FlightsGUIData_Adapter
         angle = CalcRotation(flight);
         angles.Add(angle);
         durationInSeconds = CalculateDurationInSeconds(flight);
-        speed = distance/durationInSeconds;
+        speed = distance / durationInSeconds;
         speeds.Add(speed);
         adjustBasedOnTime(flight, speed, distance, angle);
     }
@@ -153,15 +166,17 @@ public class Flight_FlightsGUIData_Adapter
         DateTime takeOffDateTime = DateTime.ParseExact(flight.TakeOffTime, "HH:mm", null);
         DateTime landingDateTime = DateTime.ParseExact(flight.LandingTime, "HH:mm", null);
 
-        if(currentTime > landingDateTime)
+        if (currentTime > landingDateTime && takeOffDateTime < landingDateTime)
         {
+
             flight.Latitude = flight.Target.Latitude;
             flight.Longitude = flight.Target.Longitude;
             return;
         }
 
-        if(currentTime < takeOffDateTime)
+        if (currentTime < takeOffDateTime)
         {
+
             flight.Latitude = flight.Origin.Latitude;
             flight.Longitude = flight.Origin.Longitude;
             return;

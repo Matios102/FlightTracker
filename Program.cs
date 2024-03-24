@@ -37,25 +37,26 @@ namespace FlightProject
             Serializer.JSONSerializer(objectList, jsonFileName);
 
 
-            var networkSource = new NetworkSourceSimulator.NetworkSourceSimulator(filePath, 50, 100);
+            var networkSource = new NetworkSourceSimulator.NetworkSourceSimulator(filePath, 0, 0);
             Snapshot snapshot = new Snapshot();
 
             networkSource.OnNewDataReady += (sender, e) => Snapshot.snapshotManager(sender, e, networkSource);
 
             var networkTask = new Task(networkSource.Run);
-            networkTask.Start();
-
             var listenTask = new Task(snapshot.ListenForCommands);
-            listenTask.Start();
-
             var guiUpdateTask = new Task(adapter.Update);
+            var guiDisplay = new Task(Runner.Run);
+
+            networkTask.Start();
+            listenTask.Start();
             guiUpdateTask.Start();
+            guiDisplay.Start();
+
             Runner.Run();
 
             networkTask.Wait(100);
             listenTask.Wait(100);
             guiUpdateTask.Wait(100);
-
         }
 
     }
