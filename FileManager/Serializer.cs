@@ -12,12 +12,36 @@ namespace FlightProject
             List<Dictionary<string, object>> typedObjectList = new List<Dictionary<string, object>>();
             foreach (var obj in objectList)
             {
-                var typedObject = new Dictionary<string, object>
+                if(obj is Flight)
                 {
-                    { "type", obj.GetType().Name},
-                    { "data", obj }
-                };
-                typedObjectList.Add(typedObject);
+                    Flight flight = obj as Flight;
+                    var typedObject = new Dictionary<string, object>
+                    {
+                        { "type", flight.GetType().Name },
+                        { "OriginID", flight.Origin.ID },
+                        { "TargetID", flight.Target.ID },
+                        { "TakeOffTime", flight.TakeOffTime },
+                        { "LandingTime", flight.LandingTime },
+                        { "Longitude", flight.Longitude },
+                        { "Latitude", flight.Latitude },
+                        { "AMSL", flight.AMSL },
+                        { "PlaneID", flight.PlaneID },
+                        { "CrewIDs", flight.CrewIDs },
+                        { "LoadIDs", flight.LoadIDs },
+                        {"ID", flight.ID}
+                    };
+                    typedObjectList.Add(typedObject);
+                }
+                else
+                {
+                    var typedObject = new Dictionary<string, object>
+                    {
+                        { "type", obj.GetType().Name},
+                        { "data", obj }
+                    };
+                    typedObjectList.Add(typedObject);
+                }
+
             }
             var jsonSerializerOptions = new JsonSerializerOptions
             {

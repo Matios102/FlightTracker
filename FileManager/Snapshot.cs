@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 
 
 namespace FlightProject
@@ -49,7 +50,7 @@ namespace FlightProject
                 }
             }
         }
-        
+
         public static void snapshotManager(object sender, NewDataReadyArgs e, NetworkSourceSimulator.NetworkSourceSimulator networkSource)
         {
             Message message = networkSource.GetMessageAt(e.MessageIndex);
@@ -63,11 +64,25 @@ namespace FlightProject
             }
 
             BaseObject parsedObject = factory.Create(byteArray);
+
+            if(parsedObject is Flight)
+            {
+                FlightReference reference = new FlightReference(objectList);
+                Flight flight = parsedObject as Flight;
+                flight.Origin = reference.FindAirportByID(flight.Origin.ID);
+                flight.Target = reference.FindAirportByID(flight.Target.ID);
+                flight.CrewList = reference.FindCrewListByID(flight.CrewIDs);
+                flight.LoadList = reference.FindLoadListByID(flight.LoadIDs);
+                flight.Longitude = flight.Origin.Longitude;
+                flight.Latitude = flight.Origin.Latitude;
+                flight.AMSL = flight.Origin.AMSL;
+
+            }
+
             if (parsedObject != null)
             {
                 objectList.Add(parsedObject);
             }
-            
         }
 
         public static void printSnapshot()

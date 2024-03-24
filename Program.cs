@@ -1,9 +1,19 @@
 ﻿
+// using System;
+// using System.Collections.Generic;
+// using System.IO;
+// using System.Linq;
+// using System.Threading;
+// using System.Threading.Tasks;
+// using Avalonia.Remote.Protocol;
+// using FlightTrackerGUI;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using FlightTrackerGUI;
 
 
 
@@ -19,12 +29,15 @@ namespace FlightProject
             string AssentsFolderName = "Data";
             string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AssentsFolderName);
             string filePath = Path.Combine(dataFolderPath, fileName);
-
             List<BaseObject> objectList = FileReader.ReadFTRFile(filePath);
+            FlightReference reference = new FlightReference(objectList);
+            Flight_FlightsGUIData_Adapter adapter = new Flight_FlightsGUIData_Adapter();
+
+
             Serializer.JSONSerializer(objectList, jsonFileName);
 
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            var networkSource = new NetworkSourceSimulator.NetworkSourceSimulator(filePath, 300, 500);
+
+            var networkSource = new NetworkSourceSimulator.NetworkSourceSimulator(filePath, 50, 100);
             Snapshot snapshot = new Snapshot();
 
             networkSource.OnNewDataReady += (sender, e) => Snapshot.snapshotManager(sender, e, networkSource);
@@ -32,9 +45,19 @@ namespace FlightProject
             var networkTask = new Task(networkSource.Run);
             networkTask.Start();
 
-            snapshot.ListenForCommands();
+            var listenTask = new Task(snapshot.ListenForCommands);
+            listenTask.Start();
+
+            var guiUpdateTask = new Task(adapter.Update);
+            guiUpdateTask.Start();
+            Runner.Run();
+
             networkTask.Wait(100);
+            listenTask.Wait(100);
+            guiUpdateTask.Wait(100);
+
         }
+
     }
 }
 

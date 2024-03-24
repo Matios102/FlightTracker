@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 
@@ -71,14 +72,20 @@ namespace FlightProject
             Flight flight = new Flight
             {
                 ID = id,
-                Origin = origin,
-                Target = target,
+                Origin = new Airport(),
+                Target = new Airport(),
                 TakeOffTime = takeOffTime,
                 LandingTime = landingTime,
                 PlaneID = planeID,
                 CrewIDs = crewIDs,
-                LoadIDs = loadIDs
+                CrewList = new List<Crew>(),
+                LoadIDs = loadIDs,
+                LoadList = new List<BaseObject>()
             };
+
+            flight.Origin.ID = origin;
+            flight.Target.ID = target;
+
 
             //Set the paramiters that are not in the byte array as a default value for now
             flight.Latitude = 0.0f;

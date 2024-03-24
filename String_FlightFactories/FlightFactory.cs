@@ -36,8 +36,8 @@ namespace FlightProject
                 Flight flight = new Flight
                 {
                     ID = UInt64.Parse(values[1]),
-                    Origin = UInt64.Parse(values[2]),
-                    Target = UInt64.Parse(values[3]),
+                    Origin = new Airport(),
+                    Target = new Airport(),
                     TakeOffTime = values[4],
                     LandingTime = values[5],
                     Longitude = Single.Parse(values[6]),
@@ -45,8 +45,12 @@ namespace FlightProject
                     AMSL = Single.Parse(values[8]),
                     PlaneID = UInt64.Parse(values[9]),
                     CrewIDs = crewIDs_uint64.ToArray(),
-                    LoadIDs = loadIDs_uint64.ToArray()
+                    CrewList = new List<Crew>(),
+                    LoadIDs = loadIDs_uint64.ToArray(),
+                    LoadList = new List<BaseObject>(),
                 };
+                flight.Origin.ID = UInt64.Parse(values[2]);
+                flight.Target.ID = UInt64.Parse(values[3]);
 
                 return flight;
         }
