@@ -31,6 +31,16 @@ namespace FlightProject
                     }
 
                     BaseObject parsedObject = factory.Create(values);
+
+                    if (parsedObject is Flight)
+                    {
+                        FlightReference reference = new FlightReference(objectList);
+                        Flight flight = parsedObject as Flight;
+                        flight.Origin = reference.FindAirportByID(flight.Origin.ID);
+                        flight.Target = reference.FindAirportByID(flight.Target.ID);
+                        flight.CrewList = reference.FindCrewListByID(flight.CrewIDs);
+                        flight.LoadList = reference.FindLoadListByID(flight.LoadIDs);
+                    }
                     if (parsedObject != null)
                     {
                         objectList.Add(parsedObject);

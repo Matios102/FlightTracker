@@ -1,17 +1,6 @@
-﻿
-// using System;
-// using System.Collections.Generic;
-// using System.IO;
-// using System.Linq;
-// using System.Threading;
-// using System.Threading.Tasks;
-// using Avalonia.Remote.Protocol;
-// using FlightTrackerGUI;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using FlightTrackerGUI;
 
@@ -31,7 +20,7 @@ namespace FlightProject
             string filePath = Path.Combine(dataFolderPath, fileName);
             List<BaseObject> objectList = FileReader.ReadFTRFile(filePath);
             FlightReference reference = new FlightReference(objectList);
-            Flight_FlightsGUIData_Adapter adapter = new Flight_FlightsGUIData_Adapter();
+            FlightToFlightsGUIDataAdapter adapter = new FlightToFlightsGUIDataAdapter();
 
 
             Serializer.JSONSerializer(objectList, jsonFileName);
@@ -45,12 +34,10 @@ namespace FlightProject
             var networkTask = new Task(networkSource.Run);
             var listenTask = new Task(snapshot.ListenForCommands);
             var guiUpdateTask = new Task(adapter.Update);
-            var guiDisplay = new Task(Runner.Run);
 
             networkTask.Start();
             listenTask.Start();
             guiUpdateTask.Start();
-            guiDisplay.Start();
 
             Runner.Run();
 

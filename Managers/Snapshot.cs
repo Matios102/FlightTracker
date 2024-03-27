@@ -2,9 +2,7 @@ using FlightProject.FileManager;
 using NetworkSourceSimulator;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading;
 
 
 namespace FlightProject
@@ -76,7 +74,6 @@ namespace FlightProject
                 flight.Longitude = flight.Origin.Longitude;
                 flight.Latitude = flight.Origin.Latitude;
                 flight.AMSL = flight.Origin.AMSL;
-
             }
 
             if (parsedObject != null)

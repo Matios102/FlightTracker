@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 
 
 namespace FlightProject
@@ -22,7 +21,7 @@ namespace FlightProject
                 Longitude = Single.Parse(values[4]),
                 Latitude = Single.Parse(values[5]),
                 AMSL = Single.Parse(values[6]),
-                ISO = values[7]                
+                ISO = values[7]
             };
             return airport;
         }

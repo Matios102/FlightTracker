@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 namespace FlightProject
 {
     public class CrewFactory : Factory
@@ -23,7 +22,7 @@ namespace FlightProject
                 Role = values[7]
             };
             return crew;
-            
+
 
         }
     }
