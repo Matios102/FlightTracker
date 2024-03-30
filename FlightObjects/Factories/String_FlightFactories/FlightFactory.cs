@@ -50,6 +50,7 @@ namespace FlightProject
                 };
                 flight.Origin.ID = UInt64.Parse(values[2]);
                 flight.Target.ID = UInt64.Parse(values[3]);
+                flight.MapCoordRotation = 0.0f;
 
                 return flight;
         }

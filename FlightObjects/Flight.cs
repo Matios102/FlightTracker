@@ -16,5 +16,7 @@ namespace FlightProject
         public List<Crew> CrewList { get; set; }
         public UInt64[] LoadIDs { get; set; }
         public List<BaseObject> LoadList { get; set; }
+
+        public double MapCoordRotation { get; set; }
     }
 }

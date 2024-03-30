@@ -20,7 +20,7 @@ namespace FlightProject
             string filePath = Path.Combine(dataFolderPath, fileName);
             List<BaseObject> objectList = FileReader.ReadFTRFile(filePath);
             FlightReference reference = new FlightReference(objectList);
-            FlightToFlightsGUIDataAdapter adapter = new FlightToFlightsGUIDataAdapter();
+            FlightUpdate flightUpdate = new FlightUpdate();
 
 
             Serializer.JSONSerializer(objectList, jsonFileName);
@@ -33,7 +33,7 @@ namespace FlightProject
 
             var networkTask = new Task(networkSource.Run);
             var listenTask = new Task(snapshot.ListenForCommands);
-            var guiUpdateTask = new Task(adapter.Update);
+            var guiUpdateTask = new Task(flightUpdate.Update);
 
             networkTask.Start();
             listenTask.Start();

@@ -91,6 +91,7 @@ namespace FlightProject
             flight.Latitude = 0.0f;
             flight.Longitude = 0.0f;
             flight.AMSL = 0.0f;
+            flight.MapCoordRotation = 0.0f;
 
             return flight;
         }

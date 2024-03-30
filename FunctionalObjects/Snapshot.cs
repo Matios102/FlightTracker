@@ -11,7 +11,7 @@ namespace FlightProject
     {
         public static List<BaseObject> objectList;
 
-        public Snapshot()
+         public Snapshot()
         {
             objectList = new List<BaseObject>();
         }
@@ -25,6 +25,9 @@ namespace FlightProject
             { "NAI", new Byte_AirportFactory() },
             { "NFL", new Byte_FlightFactory() }
         };
+
+        public static event Action<Flight> newFlightReady;
+
         public delegate void OnNewDataReadyHandler(object sender, NewDataReadyArgs e, NetworkSourceSimulator.NetworkSourceSimulator networkSource);
 
         public void ListenForCommands()
@@ -74,6 +77,8 @@ namespace FlightProject
                 flight.Longitude = flight.Origin.Longitude;
                 flight.Latitude = flight.Origin.Latitude;
                 flight.AMSL = flight.Origin.AMSL;
+
+                newFlightReady?.Invoke(flight);
             }
 
             if (parsedObject != null)
