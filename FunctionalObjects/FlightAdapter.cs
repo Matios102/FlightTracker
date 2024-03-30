@@ -6,7 +6,12 @@ namespace FlightProject
 {
     public class FlightAdapter : FlightsGUIData
     {
-        public List<Flight> flightData = new List<Flight>();
+        public List<Flight> flightData;
+
+        public FlightAdapter(List<Flight> flights)
+        {
+            flightData = flights;
+        }
 
         public override ulong GetID(int index)
         {

@@ -7,14 +7,17 @@ using Mapsui.Projections;
 
 public class FlightUpdate
 {
-    private FlightAdapter flightAdapter = new FlightAdapter();
+    private List<Flight> allFlights = new List<Flight>();
+    private List<Flight> inAirFlights = new List<Flight>();
+
+
     private Timer updateTimer;
     private List<double> speeds = new List<double>();
     private List<double> distances = new List<double>();
 
     public FlightUpdate()
     {
-        updateTimer = new Timer(1000);
+        updateTimer = new Timer(1);
         updateTimer.Elapsed += onTimerEventUpdate;
         Snapshot.newFlightReady += AddFlight;
     }
@@ -24,12 +27,13 @@ public class FlightUpdate
         updateTimer.Start();
         while (true)
         {
-            Runner.UpdateGUI(flightAdapter);
+            Runner.UpdateGUI(new FlightAdapter(inAirFlights));
         }
     }
 
     private void onTimerEventUpdate(object source, ElapsedEventArgs e)
     {
+        Console.WriteLine(inAirFlights.Count);
         MovePlanes();
     }
 
@@ -48,9 +52,9 @@ public class FlightUpdate
     public void MovePlanes()
     {
         DateTime currentTime = DateTime.Now;
-        for (int i = 0; i < flightAdapter.flightData.Count; i++)
+        for (int i = 0; i < allFlights.Count; i++)
         {
-            DateTime takeOffDateTime = DateTime.ParseExact(flightAdapter.flightData[i].TakeOffTime, "HH:mm", null);
+            DateTime takeOffDateTime = DateTime.ParseExact(allFlights[i].TakeOffTime, "HH:mm", null);
             if (currentTime < takeOffDateTime)
             {
                 continue;
@@ -59,11 +63,11 @@ public class FlightUpdate
 
             double currentX, currentY;
 
-            (currentX, currentY) = SphericalMercator.FromLonLat((double)flightAdapter.flightData[i].Longitude, (double)flightAdapter.flightData[i].Latitude);
+            (currentX, currentY) = SphericalMercator.FromLonLat((double)allFlights[i].Longitude, (double)allFlights[i].Latitude);
             double speed = speeds[i];
 
-            double speedY = speed * Math.Cos(flightAdapter.flightData[i].MapCoordRotation);
-            double speedX = speed * Math.Sin(flightAdapter.flightData[i].MapCoordRotation);
+            double speedY = speed * Math.Cos(allFlights[i].MapCoordRotation);
+            double speedX = speed * Math.Sin(allFlights[i].MapCoordRotation);
 
             currentX += speedX;
             currentY += speedY;
@@ -71,16 +75,22 @@ public class FlightUpdate
             double newLon, newLat;
             (newLon, newLat) = SphericalMercator.ToLonLat(currentX, currentY);
 
-            if (isAtDestination(flightAdapter.flightData[i], currentX, currentY))
+            if (isAtDestination(allFlights[i], currentX, currentY))
             {
-                flightAdapter.flightData[i].Longitude = flightAdapter.flightData[i].Target.Longitude;
-                flightAdapter.flightData[i].Latitude = flightAdapter.flightData[i].Target.Latitude;
-                flightAdapter.flightData[i].MapCoordRotation = Math.PI / 2;
+                allFlights[i].Longitude = allFlights[i].Target.Longitude;
+                allFlights[i].Latitude = allFlights[i].Target.Latitude;
+                allFlights[i].MapCoordRotation = Math.PI /2;
+
+                inAirFlights.Remove(allFlights[i]);
                 continue;
             }
 
-            flightAdapter.flightData[i].Longitude = (float)newLon;
-            flightAdapter.flightData[i].Latitude = (float)newLat;
+            allFlights[i].Longitude = (float)newLon;
+            allFlights[i].Latitude = (float)newLat;
+
+            if(!inAirFlights.Contains(allFlights[i]))
+                inAirFlights.Add(allFlights[i]);
+
         }
     }
     public double CalcRotation(Flight f)
@@ -171,6 +181,6 @@ public class FlightUpdate
     {
         Console.WriteLine("Adding new flight, ID: " + flight.ID);
         InitializeParamiters(flight);
-        flightAdapter.flightData.Add(flight);
+        allFlights.Add(flight);
     }
 }
