@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace FlightProject
+namespace FlightProject.FlightObjects.Factories.Byte_FlightFactories
 {
     public class Byte_PassengerPlaneFactory : Byte_Factory
     {

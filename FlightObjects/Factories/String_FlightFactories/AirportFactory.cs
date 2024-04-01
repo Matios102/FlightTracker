@@ -1,7 +1,7 @@
 using System;
 
 
-namespace FlightProject
+namespace FlightProject.FlightObjects.Factories.String_FlightFactories
 {
     public class AirportFactory : Factory
     {

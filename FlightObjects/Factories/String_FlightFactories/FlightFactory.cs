@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace FlightProject
+namespace FlightProject.FlightObjects.Factories.String_FlightFactories
 {
     public class FlightFactory : Factory
     {

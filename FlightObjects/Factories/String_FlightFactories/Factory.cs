@@ -1,5 +1,5 @@
 
-namespace FlightProject
+namespace FlightProject.FlightObjects.Factories.String_FlightFactories
 {
     public abstract class Factory
     {

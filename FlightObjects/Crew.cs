@@ -1,6 +1,6 @@
 using System;
 
-namespace FlightProject
+namespace FlightProject.FlightObjects
 {
     public class Crew : BaseObject
     {
@@ -11,6 +11,6 @@ namespace FlightProject
         public UInt16 Practice { get; set; }
         public String Role { get; set; }
 
-    
+
     }
 }

@@ -1,11 +1,13 @@
-using FlightProject.FileManager;
+
+using FlightProject.FlightObjects;
+using FlightProject.FlightObjects.Factories.Byte_FlightFactories;
 using NetworkSourceSimulator;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 
-namespace FlightProject
+namespace FlightProject.FunctionalObjects
 {
     public class Snapshot : baseFileManager
     {
@@ -29,28 +31,6 @@ namespace FlightProject
         public static event Action<Flight> newFlightReady;
 
         public delegate void OnNewDataReadyHandler(object sender, NewDataReadyArgs e, NetworkSourceSimulator.NetworkSourceSimulator networkSource);
-
-        public void ListenForCommands()
-        {
-            while (true)
-            {
-                string command = Console.ReadLine()?.ToLowerInvariant();
-
-                switch (command)
-                {
-                    case "print":
-                        printSnapshot();
-                        break;
-                    case "exit":
-                        objectList.Clear();
-                        Console.WriteLine("Exiting");
-                        return;
-                    default:
-                        Console.WriteLine("Unknown command. Available commands: print, exit");
-                        break;
-                }
-            }
-        }
 
         public static void snapshotManager(object sender, NewDataReadyArgs e, NetworkSourceSimulator.NetworkSourceSimulator networkSource)
         {
@@ -85,13 +65,6 @@ namespace FlightProject
             {
                 objectList.Add(parsedObject);
             }
-        }
-
-        public static void printSnapshot()
-        {
-            string timestamp = DateTime.Now.ToString("HH_mm_ss");
-            string fileName = $"snapshot_{timestamp}.json";
-            Serializer.JSONSerializer(objectList, fileName);
         }
     }
 }

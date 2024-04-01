@@ -1,6 +1,6 @@
 using System;
 
-namespace FlightProject
+namespace FlightProject.FlightObjects
 {
     public abstract class BaseObject
     {

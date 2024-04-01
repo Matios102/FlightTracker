@@ -2,11 +2,11 @@ using System;
 using System.Text;
 
 
-namespace FlightProject
+namespace FlightProject.FlightObjects.Factories.Byte_FlightFactories
 {
     public class Byte_AirportFactory : Byte_Factory
     {
-        
+
         public override Airport Create(byte[] values)
         {
             int index = 0;

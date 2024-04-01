@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-namespace FlightProject
+namespace FlightProject.FlightObjects
 {
     public class Flight : BaseObject
     {

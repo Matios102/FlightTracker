@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
-namespace FlightProject
+namespace FlightProject.FlightObjects.Factories.Byte_FlightFactories
 {
     public class Byte_FlightFactory : Byte_Factory
     {

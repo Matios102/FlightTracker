@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using FlightProject.FlightObjects;
 
-namespace FlightProject
+namespace FlightProject.FunctionalObjects
 {
     public class FlightReference
     {

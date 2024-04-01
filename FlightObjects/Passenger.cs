@@ -1,5 +1,5 @@
 using System;
-namespace FlightProject
+namespace FlightProject.FlightObjects
 {
     public class Passenger : BaseObject
     {

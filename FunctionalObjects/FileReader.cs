@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using FlightProject.FileManager;
+using FlightProject.FlightObjects;
 
-namespace FlightProject
+namespace FlightProject.FunctionalObjects
 {
     public class FileReader : baseFileManager
     {

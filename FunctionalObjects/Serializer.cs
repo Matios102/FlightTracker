@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
+using FlightProject.FlightObjects;
 
-namespace FlightProject
+namespace FlightProject.FunctionalObjects
 {
     public class Serializer
     {
