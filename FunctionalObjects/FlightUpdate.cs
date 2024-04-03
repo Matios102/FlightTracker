@@ -15,12 +15,15 @@ namespace FlightProject.FunctionalObjects
         private List<double> speeds = new List<double>();
         private List<double> distances = new List<double>();
 
+        private FlightAdapter flightAdapter;
+
 
         public FlightUpdate()
         {
             updateTimer = new Timer(1000);
             updateTimer.Elapsed += onTimerEventUpdate;
             Snapshot.newFlightReady += AddFlight;
+            flightAdapter = new FlightAdapter(inAirFlights);
         }
 
         public void Update()
@@ -28,7 +31,7 @@ namespace FlightProject.FunctionalObjects
             updateTimer.Start();
             while (true)
             {
-                Runner.UpdateGUI(new FlightAdapter(inAirFlights));
+                Runner.UpdateGUI(flightAdapter);
             }
         }
 
@@ -82,6 +85,7 @@ namespace FlightProject.FunctionalObjects
                     allFlights[i].MapCoordRotation = Math.PI / 2;
 
                     inAirFlights.Remove(allFlights[i]);
+                    flightAdapter.flightData.Remove(allFlights[i]);
                     continue;
                 }
 
@@ -89,10 +93,18 @@ namespace FlightProject.FunctionalObjects
                 allFlights[i].Latitude = (float)newLat;
 
                 if (!inAirFlights.Contains(allFlights[i]))
+                {
                     inAirFlights.Add(allFlights[i]);
+                    flightAdapter.flightData.Add(allFlights[i]);
+                }
 
             }
 
+            for(int i = 0; i < inAirFlights.Count; i++)
+            {
+                flightAdapter.flightData[i].Longitude = inAirFlights[i].Longitude;
+                flightAdapter.flightData[i].Latitude = inAirFlights[i].Latitude;
+            }
         }
         public double CalcRotation(Flight f)
         {
