@@ -35,7 +35,7 @@ namespace FlightProject.FunctionalObjects
                         break;
 
                     default:
-                        Console.WriteLine("Unknown command. Available commands: print, exit");
+                        Console.WriteLine("Unknown command. Available commands: print, report, exit");
                         break;
                 }
             }
