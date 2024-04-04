@@ -85,7 +85,6 @@ namespace FlightProject.FunctionalObjects
                     allFlights[i].MapCoordRotation = Math.PI / 2;
 
                     inAirFlights.Remove(allFlights[i]);
-                    flightAdapter.flightData.Remove(allFlights[i]);
                     continue;
                 }
 
@@ -95,15 +94,8 @@ namespace FlightProject.FunctionalObjects
                 if (!inAirFlights.Contains(allFlights[i]))
                 {
                     inAirFlights.Add(allFlights[i]);
-                    flightAdapter.flightData.Add(allFlights[i]);
                 }
 
-            }
-
-            for(int i = 0; i < inAirFlights.Count; i++)
-            {
-                flightAdapter.flightData[i].Longitude = inAirFlights[i].Longitude;
-                flightAdapter.flightData[i].Latitude = inAirFlights[i].Latitude;
             }
         }
         public double CalcRotation(Flight f)
