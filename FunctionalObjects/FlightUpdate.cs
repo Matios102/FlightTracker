@@ -4,6 +4,7 @@ using System.Timers;
 using FlightProject.FlightObjects;
 using FlightTrackerGUI;
 using Mapsui.Projections;
+using NetworkSourceSimulator;
 
 namespace FlightProject.FunctionalObjects
 {
@@ -17,17 +18,28 @@ namespace FlightProject.FunctionalObjects
 
         private FlightAdapter flightAdapter;
 
+        private Listener listener;
 
-        public FlightUpdate()
+
+        public FlightUpdate(Listener listiner)
         {
+            listiner.FlightUpdateEvent += PositionUpdateHendler;
             updateTimer = new Timer(1000);
             updateTimer.Elapsed += onTimerEventUpdate;
             Snapshot.newFlightReady += AddFlight;
             flightAdapter = new FlightAdapter(inAirFlights);
+            listener = listiner;
         }
 
         public void Update()
         {
+            foreach (var obj in Snapshot.objectList)
+            {
+                if (obj is Flight)
+                {
+                    AddFlight(obj as Flight);
+                }
+            }
             updateTimer.Start();
             while (true)
             {
@@ -120,7 +132,7 @@ namespace FlightProject.FunctionalObjects
         private double CalculateDistance(Flight flight)
         {
             double originX, originY, destX, destY;
-            (originX, originY) = SphericalMercator.FromLonLat(flight.Origin.Longitude, flight.Origin.Latitude);
+            (originX, originY) = SphericalMercator.FromLonLat(flight.Longitude, flight.Latitude);
             (destX, destY) = SphericalMercator.FromLonLat(flight.Target.Longitude, flight.Target.Latitude);
 
             return Math.Sqrt((destX - originX) * (destX - originX) + (destY - originY) * (destY - originY));
@@ -186,6 +198,30 @@ namespace FlightProject.FunctionalObjects
             Console.WriteLine("Adding new flight, ID: " + flight.ID);
             InitializeParamiters(flight);
             allFlights.Add(flight);
+        }
+
+        private void PositionUpdateHendler(object sender, PositionUpdateArgs args, Flight flight)
+        {
+            double originalLon = flight.Longitude;
+            double originalLat = flight.Latitude;
+            flight.Latitude = args.Latitude;
+            flight.Longitude = args.Longitude;
+            flight.AMSL = args.AMSL;
+            double originalRotation = flight.MapCoordRotation;
+            double originalSpeed = 0;
+
+            flight.MapCoordRotation = CalcRotation(flight);
+
+
+            for(int i = 0; i < allFlights.Count; i++)
+            {
+                if(allFlights[i].ID == flight.ID)
+                {
+                    originalSpeed = speeds[i];
+                    speeds[i] = CalculateDistance(flight) / CalculateDurationInSeconds(flight);
+                    listener.LogChange($"Flight [{flight.ID}] updated from longitude: {originalLon}, latitude: {originalLat}, speed: {originalSpeed}, rotation: {originalRotation} to longitude: {flight.Longitude}, latitude: {flight.Latitude}, speed: {speeds[i]}, rotation: {flight.MapCoordRotation}");
+                }
+            }
         }
     }
 }

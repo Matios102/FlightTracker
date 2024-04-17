@@ -11,11 +11,16 @@ namespace FlightProject.FunctionalObjects
 {
     public class Snapshot : baseFileManager
     {
-        public static List<BaseObject> objectList;
+        public static List<BaseObject> objectList = new List<BaseObject>();
 
          public Snapshot()
         {
             objectList = new List<BaseObject>();
+        }
+
+        public Snapshot(List<BaseObject> objectList)
+        {
+            Snapshot.objectList = objectList;
         }
         public static readonly new Dictionary<string, Byte_Factory> FactoryParser = new Dictionary<string, Byte_Factory>
         {
