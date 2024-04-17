@@ -14,7 +14,6 @@ namespace FlightProject.FunctionalObjects
 
         private List<BaseObject> FTRobjectList;
         private string logPath;
-
         public event Action<Listener, PositionUpdateArgs, Flight> FlightUpdateEvent;
 
 
@@ -25,15 +24,20 @@ namespace FlightProject.FunctionalObjects
             networkSource.OnPositionUpdate += PositionUpdateHendler;
             networkSource.OnContactInfoUpdate += ContactInfoUpdateHendler;
 
-            logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
-            if (!Directory.Exists(logPath))
-                Directory.CreateDirectory(logPath);
+            string AllLogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            if (!Directory.Exists(AllLogPath))
+                Directory.CreateDirectory(AllLogPath);
 
 
             DateTime now = DateTime.Now;
-            string timestamp = now.ToString("dd_MM_yyyy");
-            string logFileName = $"log_{timestamp}.txt";
-            logPath = Path.Combine(logPath, logFileName);
+            string logFolderName = $"log_{now.ToString("dd_MM_yyyy")}";
+            string logFileName = $"log_{now.ToString("HH_mm_ss")}.txt";
+
+            string TodayLogPath = Path.Combine(AllLogPath, logFolderName);
+            if (!Directory.Exists(TodayLogPath))
+                Directory.CreateDirectory(TodayLogPath);
+
+            logPath = Path.Combine(TodayLogPath, logFileName);
             string logMessage = $"LOGG {now.ToLongTimeString()}";
             LogChange(Environment.NewLine + logMessage + Environment.NewLine);
         }
@@ -100,7 +104,7 @@ namespace FlightProject.FunctionalObjects
         private void IDUpdateHendler(object sender, IDUpdateArgs args)
         {
             BaseObject obj = FTRobjectList.Find(x => x.ID == args.ObjectID);
-            if(obj == null)
+            if (obj == null)
             {
                 LogChange($"Error: Object with ID {args.ObjectID} not found");
                 return;
@@ -112,7 +116,7 @@ namespace FlightProject.FunctionalObjects
         private void ContactInfoUpdateHendler(object sender, ContactInfoUpdateArgs args)
         {
             BaseObject obj = FTRobjectList.Find(x => x.ID == args.ObjectID);
-            if(obj == null)
+            if (obj == null)
             {
                 LogChange($"Error: Object with ID {args.ObjectID} not found");
                 return;
@@ -147,7 +151,7 @@ namespace FlightProject.FunctionalObjects
         private void PositionUpdateHendler(object sender, PositionUpdateArgs args)
         {
             BaseObject obj = FTRobjectList.Find(x => x.ID == args.ObjectID);
-            if(obj == null)
+            if (obj == null)
             {
                 LogChange($"Error: Object with ID {args.ObjectID} not found");
                 return;
