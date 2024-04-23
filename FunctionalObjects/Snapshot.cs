@@ -13,7 +13,7 @@ namespace FlightProject.FunctionalObjects
     {
         public static List<BaseObject> objectList = new List<BaseObject>();
 
-         public Snapshot()
+        public Snapshot()
         {
             objectList = new List<BaseObject>();
         }
@@ -51,24 +51,35 @@ namespace FlightProject.FunctionalObjects
 
             BaseObject parsedObject = factory.Create(byteArray);
 
-            if(parsedObject is Flight)
+            if (parsedObject is Flight)
             {
-                FlightReference reference = new FlightReference(objectList);
                 Flight flight = parsedObject as Flight;
-                flight.Origin = reference.FindAirportByID(flight.Origin.ID);
-                flight.Target = reference.FindAirportByID(flight.Target.ID);
-                flight.CrewList = reference.FindCrewListByID(flight.CrewIDs);
-                flight.LoadList = reference.FindLoadListByID(flight.LoadIDs);
-                flight.Longitude = flight.Origin.Longitude;
-                flight.Latitude = flight.Origin.Latitude;
-                flight.AMSL = flight.Origin.AMSL;
-
                 newFlightReady?.Invoke(flight);
             }
 
             if (parsedObject != null)
             {
                 objectList.Add(parsedObject);
+            }
+        }
+
+        public static void FlightReference()
+        {
+            FlightReference reference = new FlightReference(objectList);
+
+            foreach (var obj in objectList)
+            {
+                if (obj is Flight)
+                {
+                    Flight flight = obj as Flight;
+                    flight.Origin = reference.FindAirportByID(flight.Origin.ID);
+                    flight.Target = reference.FindAirportByID(flight.Target.ID);
+                    flight.CrewList = reference.FindCrewListByID(flight.CrewIDs);
+                    flight.LoadList = reference.FindLoadListByID(flight.LoadIDs);
+                    flight.Longitude = flight.Origin.Longitude;
+                    flight.Latitude = flight.Origin.Latitude;
+                    flight.AMSL = flight.Origin.AMSL;
+                }
             }
         }
     }

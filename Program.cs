@@ -19,10 +19,11 @@ namespace FlightProject
             string dataFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AssentsFolderName);
             string FTRfilePath = Path.Combine(dataFolderPath, FTRfileName);
             string FTREfilePath = Path.Combine(dataFolderPath, FTREfileName);
-            var networkSource = new NetworkSourceSimulator.NetworkSourceSimulator(FTREfilePath, 200, 300);
+            var networkSource = new NetworkSourceSimulator.NetworkSourceSimulator(FTREfilePath, 200, 500);
 
             List<BaseObject> objectList = FileReader.ReadFTRFile(FTRfilePath);
             Snapshot snapshot = new Snapshot(objectList);
+            Snapshot.FlightReference();
             Listener listener = new Listener(objectList, networkSource);
             FlightUpdate flightUpdate = new FlightUpdate(listener);
 
@@ -30,12 +31,6 @@ namespace FlightProject
 
             Serializer.JSONSerializer(objectList, jsonFileName);
 
-
-            //var networkSource = new NetworkSourceSimulator.NetworkSourceSimulator(FTRfilePath, 0, 0);
-            //Snapshot snapshot = new Snapshot();
-
-
-            //networkSource.OnNewDataReady += (sender, e) => Snapshot.snapshotManager(sender, e, networkSource);
 
             var networkTask = new Task(networkSource.Run);
             var listenTask = new Task(listener.ListenForCommands);
@@ -47,7 +42,7 @@ namespace FlightProject
 
             Runner.Run();
 
-            //networkTask.Wait(100);
+            networkTask.Wait(100);
             listenTask.Wait(100);
             guiUpdateTask.Wait(100);
 

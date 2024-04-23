@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
 using FlightProject.FlightObjects;
+using System.Linq;
 
 namespace FlightProject.FunctionalObjects
 {
@@ -16,6 +17,9 @@ namespace FlightProject.FunctionalObjects
                 if(obj is Flight)
                 {
                     Flight flight = obj as Flight;
+                    var crewIds = flight.CrewList.Select(crew => crew.ID).ToList();
+                    var loadIds = flight.LoadList.Select(load => load.ID).ToList();
+
                     var typedObject = new Dictionary<string, object>
                     {
                         { "type", flight.GetType().Name },
@@ -27,8 +31,8 @@ namespace FlightProject.FunctionalObjects
                         { "Latitude", flight.Latitude },
                         { "AMSL", flight.AMSL },
                         { "PlaneID", flight.PlaneID },
-                        { "CrewIDs", flight.CrewIDs },
-                        { "LoadIDs", flight.LoadIDs },
+                        { "CrewIDs", crewIds },
+                        { "LoadIDs", loadIds },
                         {"ID", flight.ID}
                     };
                     typedObjectList.Add(typedObject);

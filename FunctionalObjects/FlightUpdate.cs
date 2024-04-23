@@ -208,7 +208,7 @@ namespace FlightProject.FunctionalObjects
             flight.Longitude = args.Longitude;
             flight.AMSL = args.AMSL;
             double originalRotation = flight.MapCoordRotation;
-            double originalSpeed = 0;
+            double originalSpeed;
 
             flight.MapCoordRotation = CalcRotation(flight);
 
