@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using FlightProject.FlightObjects;
 using FlightProject.FunctionalObjects;
+using FlightProject.FunctionalObjects.DaraSourceEvents;
 using FlightTrackerGUI;
 
 namespace FlightProject
@@ -24,8 +25,17 @@ namespace FlightProject
             List<BaseObject> objectList = FileReader.ReadFTRFile(FTRfilePath);
             Snapshot snapshot = new Snapshot(objectList);
             Snapshot.FlightReference();
-            Listener listener = new Listener(objectList, networkSource);
-            FlightUpdate flightUpdate = new FlightUpdate(listener);
+            Listener listener = new Listener(objectList);
+            Logger logger = new Logger();
+            Publisher publisher = new Publisher(networkSource);
+            idManager idManager = new idManager(objectList, logger);
+            positionManager positionManager = new positionManager(objectList, logger);
+            contactManager contactManager = new contactManager(objectList, logger);
+            FlightUpdate flightUpdate = new FlightUpdate(logger, positionManager);
+
+            publisher.subscribe(idManager);
+            publisher.subscribe(positionManager);
+            publisher.subscribe(contactManager);
 
 
 

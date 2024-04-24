@@ -5,6 +5,7 @@ using FlightProject.FlightObjects;
 using FlightTrackerGUI;
 using Mapsui.Projections;
 using NetworkSourceSimulator;
+using FlightProject.FunctionalObjects.DaraSourceEvents;
 
 namespace FlightProject.FunctionalObjects
 {
@@ -18,17 +19,17 @@ namespace FlightProject.FunctionalObjects
 
         private FlightAdapter flightAdapter;
 
-        private Listener listener;
+        private Logger logger;
 
 
-        public FlightUpdate(Listener listiner)
+        public FlightUpdate(Logger logger, positionManager positionManager)
         {
-            listiner.FlightUpdateEvent += PositionUpdateHendler;
+            positionManager.FlightUpdateEvent += PositionUpdateHendler;
             updateTimer = new Timer(1000);
             updateTimer.Elapsed += onTimerEventUpdate;
             Snapshot.newFlightReady += AddFlight;
             flightAdapter = new FlightAdapter(inAirFlights);
-            listener = listiner;
+            this.logger = logger;
         }
 
         public void Update()
@@ -204,11 +205,14 @@ namespace FlightProject.FunctionalObjects
         {
             double originalLon = flight.Longitude;
             double originalLat = flight.Latitude;
+
+            double originalRotation = flight.MapCoordRotation;
+            double originalSpeed;
+
+
             flight.Latitude = args.Latitude;
             flight.Longitude = args.Longitude;
             flight.AMSL = args.AMSL;
-            double originalRotation = flight.MapCoordRotation;
-            double originalSpeed;
 
             flight.MapCoordRotation = CalcRotation(flight);
 
@@ -219,7 +223,7 @@ namespace FlightProject.FunctionalObjects
                 {
                     originalSpeed = speeds[i];
                     speeds[i] = CalculateDistance(flight) / CalculateDurationInSeconds(flight);
-                    listener.LogChange($"Flight [{flight.ID}] updated from longitude: {originalLon}, latitude: {originalLat}, speed: {originalSpeed}, rotation: {originalRotation} to longitude: {flight.Longitude}, latitude: {flight.Latitude}, speed: {speeds[i]}, rotation: {flight.MapCoordRotation}");
+                    logger.LogChange($"Flight [{flight.ID}] updated from longitude: {originalLon}, latitude: {originalLat}, speed: {originalSpeed}, rotation: {originalRotation} to longitude: {flight.Longitude}, latitude: {flight.Latitude}, speed: {speeds[i]}, rotation: {flight.MapCoordRotation}");
                 }
             }
         }
