@@ -79,6 +79,7 @@ namespace FlightProject.FunctionalObjects
                     flight.Longitude = flight.Origin.Longitude;
                     flight.Latitude = flight.Origin.Latitude;
                     flight.AMSL = flight.Origin.AMSL;
+                    flight.Plane = reference.FindPlaneByID(flight.PlaneID);
                 }
             }
         }

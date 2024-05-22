@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FlightProject.FlightObjects;
+using FlightProject.FunctionalObjects.Commands;
 using FlightProject.FunctionalObjects.NewsProviders;
 
 
@@ -17,8 +18,7 @@ namespace FlightProject.FunctionalObjects
         {
             while (true)
             {
-                string command = Console.ReadLine()?.ToLowerInvariant();
-
+                string command = Console.ReadLine();
                 switch (command)
                 {
                     case "print":
@@ -33,10 +33,16 @@ namespace FlightProject.FunctionalObjects
                         break;
 
                     default:
-                        Console.WriteLine("Unknown command. Available commands: print, report, exit");
+                        Query(command);
                         break;
+
                 }
             }
+        }
+
+        public void Query(string input)
+        {
+            QueryProcessor.ProcessQuery(FTRobjectList, input);
         }
 
         public void printSnapshot()

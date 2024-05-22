@@ -17,6 +17,8 @@ namespace FlightProject.FlightObjects
         public UInt64[] LoadIDs { get; set; }
         public List<BaseObject> LoadList { get; set; }
 
+        public BasePlane Plane { get; set; }
+
         public double MapCoordRotation { get; set; }
     }
 }

@@ -37,8 +37,6 @@ namespace FlightProject
             publisher.subscribe(positionManager);
             publisher.subscribe(contactManager);
 
-
-
             Serializer.JSONSerializer(objectList, jsonFileName);
 
 

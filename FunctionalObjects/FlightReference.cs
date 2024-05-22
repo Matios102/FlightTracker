@@ -41,5 +41,10 @@ namespace FlightProject.FunctionalObjects
 
             return loadList;
         }
+
+        public BasePlane FindPlaneByID(UInt64 id)
+        {
+            return (BasePlane)objectList.Find(plane => plane.ID == id);
+        }
     }
 }
