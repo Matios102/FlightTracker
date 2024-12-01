@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-
+// Factory pattern for creating Flight objects from string values
 namespace FlightProject.FlightObjects.Factories.String_FlightFactories
 {
     public class FlightFactory : Factory
@@ -51,6 +51,9 @@ namespace FlightProject.FlightObjects.Factories.String_FlightFactories
                 flight.Origin.ID = UInt64.Parse(values[2]);
                 flight.Target.ID = UInt64.Parse(values[3]);
                 flight.MapCoordRotation = 0.0f;
+                flight.CurrentSpeed = 0.0f;
+                flight.TotalDistance = 0.0f;
+                flight.TotalDurationInSeonds = 0.0f;
 
                 return flight;
         }

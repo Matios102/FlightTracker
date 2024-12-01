@@ -1,5 +1,6 @@
 using System;
 
+// Builder pattern for Crew
 namespace FlightProject.FlightObjects.Builders
 {
     public class CrewBuilder

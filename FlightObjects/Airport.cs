@@ -2,6 +2,7 @@ using System;
 using FlightProject.FunctionalObjects;
 namespace FlightProject.FlightObjects
 {
+    // Purpose: Represents an airport.
     public class Airport : BaseObject, IReportable
     {
         public String Name {get; set;}
@@ -11,6 +12,7 @@ namespace FlightProject.FlightObjects
         public Single AMSL {get; set;}
         public String ISO {get; set;}
 
+        // Purpose: viitor pattern accept method.
         public void accept(INewsVisitor visitor)
         {
             visitor.visitAirport(this);

@@ -4,7 +4,7 @@ using FlightProject.FlightObjects;
 using FlightProject.FunctionalObjects.Commands;
 using FlightProject.FunctionalObjects.NewsProviders;
 
-
+// This class is responsible for listening to user input and executing commands
 namespace FlightProject.FunctionalObjects
 {
     public class Listener
@@ -22,18 +22,18 @@ namespace FlightProject.FunctionalObjects
                 switch (command)
                 {
                     case "print":
-                        printSnapshot();
+                        printSnapshot(); // Serialize the current state of the objects
                         break;
                     case "exit":
-                        Snapshot.objectList.Clear();
+                        Snapshot.objectList.Clear(); // Clear the snapshot and exit
                         Console.WriteLine("Exiting");
                         return;
                     case "report":
-                        GenerateReport();
+                        GenerateReport(); // Generate a report
                         break;
 
                     default:
-                        Query(command);
+                        Query(command); // Process the command
                         break;
 
                 }
@@ -45,6 +45,7 @@ namespace FlightProject.FunctionalObjects
             QueryProcessor.ProcessQuery(FTRobjectList, input);
         }
 
+        // Serialize the current state of the objects
         public void printSnapshot()
         {
             string timestamp = DateTime.Now.ToString("HH_mm_ss");
@@ -52,6 +53,7 @@ namespace FlightProject.FunctionalObjects
             Serializer.JSONSerializer(Snapshot.objectList, fileName);
         }
 
+        // Generate a report
         public void GenerateReport()
         {
             List<IReportable> reportables = new List<IReportable>();

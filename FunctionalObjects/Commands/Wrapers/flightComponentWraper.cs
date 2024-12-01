@@ -1,6 +1,7 @@
 using System;
 using FlightProject.FlightObjects;
 
+// Purpose: This class is responsible for creating the flight component wraper
 namespace FlightProject.FunctionalObjects.Commands.Wrapers
 {
     public class flightComponentWraper : IFiledWraper

@@ -5,6 +5,7 @@ using System.IO;
 using FlightProject.FlightObjects;
 using System.Linq;
 
+// Serializer class for JSON serialization
 namespace FlightProject.FunctionalObjects
 {
     public class Serializer
@@ -12,6 +13,7 @@ namespace FlightProject.FunctionalObjects
         public static void JSONSerializer(List<BaseObject> objectList, string fileName)
         {
             List<Dictionary<string, object>> typedObjectList = new List<Dictionary<string, object>>();
+            // Create a typed object list to match required JSON format
             foreach (var obj in objectList)
             {
                 if(obj is Flight)

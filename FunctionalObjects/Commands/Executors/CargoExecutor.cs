@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FlightProject.FlightObjects;
+using FlightProject.FlightObjects.Builders;
 
 namespace FlightProject.FunctionalObjects.Commands.Executors
 {
@@ -17,12 +18,12 @@ namespace FlightProject.FunctionalObjects.Commands.Executors
             {
                 throw new ArgumentNullException();
             }
-            Cargo cargo = new Cargo();
+            CargoBuilder cargoBuilder = new CargoBuilder();
             foreach (var key in key_value.Keys)
             {
-                wrapper.SetProperty(cargo, key, key_value[key]);
+                cargoBuilder.SetProperty(key, key_value[key]);
             }
-            objects.Add(cargo);
+            objects.Add(cargoBuilder.Build());
         }
 
         public override void Display(List<BaseObject> objects, List<string> properties, List<Condition> conditions, List<string> logicalOperators)
@@ -69,8 +70,8 @@ namespace FlightProject.FunctionalObjects.Commands.Executors
             {
                 throw new ArgumentNullException();
             }
-            IEnumerable<BaseObject> toDelete = objects.OfType<Cargo>().ToList();
-            if (conditions != null)
+            List<BaseObject> toDelete = objects.OfType<Cargo>().Cast<BaseObject>().ToList();
+            if (conditions.Count != 0)
             {
                 toDelete = applyConditions(toDelete, conditions, logicalOperators);
             }

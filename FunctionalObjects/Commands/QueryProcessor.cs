@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using FlightProject.FlightObjects;
 using FlightProject.FunctionalObjects.Commands.Executors;
 
+// Purpose: This class is responsible for processing the query
 namespace FlightProject.FunctionalObjects.Commands
 {
     public class QueryProcessor
@@ -46,7 +47,6 @@ namespace FlightProject.FunctionalObjects.Commands
                         parsedQuery = QueryParser.Delete(query);
                         break;
                 };
-
                 Executor executor = executors[parsedQuery.object_class];
                 executor.Execute(data, parsedQuery);
             }

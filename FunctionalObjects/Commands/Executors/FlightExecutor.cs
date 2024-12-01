@@ -68,8 +68,8 @@ namespace FlightProject.FunctionalObjects.Commands.Executors
             {
                 throw new ArgumentNullException();
             }
-            IEnumerable<BaseObject> toDelete = objects.OfType<Flight>().ToList();
-            if (conditions != null)
+            List<BaseObject> toDelete = objects.OfType<Flight>().Cast<BaseObject>().ToList();
+            if (conditions.Count != 0)
             {
                 toDelete = applyConditions(toDelete, conditions, logicalOperators);
             }

@@ -2,6 +2,7 @@ using System;
 
 namespace FlightProject.FlightObjects
 {
+    // Purpose: Represents a crew.
     public class Crew : BaseObject
     {
         public String Name { get; set; }

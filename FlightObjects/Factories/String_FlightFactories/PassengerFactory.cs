@@ -1,5 +1,6 @@
 using System;
 
+// Factory pattern for creating Passenger objects from string values
 namespace FlightProject.FlightObjects.Factories.String_FlightFactories
 {
     public class PassengerFactory : Factory

@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using ExCSS;
 
+
+// Purpose: This class is responsible for parsing the query
 namespace FlightProject.FunctionalObjects.Commands
 {
     public class QueryParser
     {
         public static Command Display(string querry)
         {
+            // Display pattern : display {fields} from {object_class} where {conditions}
             string pattern = "(display){1}\\s(.*)\\sfrom(?:\\s(\\w+){0,1}){0,1}\\s{0,1}(?:where\\s(.*)){0,1}";
             var match = new Regex(pattern).Match(querry);
             if (match.Success)
@@ -71,6 +74,7 @@ namespace FlightProject.FunctionalObjects.Commands
 
         public static Command Update(string querry)
         {
+            // Update pattern : update {object_class} set ({key}={value}, {key}={value}) where {conditions}
             string pattern = "update\\s(\\w+)\\sset\\s\\((.*)\\)\\s{0,1}(?:where\\s(.*)){0,1}";
             var match = new Regex(pattern).Match(querry);
             if (match.Success)
@@ -132,6 +136,7 @@ namespace FlightProject.FunctionalObjects.Commands
 
         public static Command Add(string querry)
         {
+            // Add pattern : add {object_class} new ({key}={value}, {key}={value})
             string pattern = "(?:add)\\s(\\w+)\\s(?:new)\\s\\((.*)\\)";
             var match = new Regex(pattern).Match(querry);
             if (match.Success)
@@ -158,6 +163,7 @@ namespace FlightProject.FunctionalObjects.Commands
 
         public static Command Delete(string querry)
         {
+            // Delete pattern : delete {object_class} where {conditions}
             string pattern = "(delete){1}\\s(\\w+)\\s{0,1}(?:where\\s(.*)){0,1}";
             var match = new Regex(pattern).Match(querry);
             if(match.Success)
@@ -172,7 +178,11 @@ namespace FlightProject.FunctionalObjects.Commands
                 List<string> operators = new List<string>();
                 List<string> values = new List<string>();
                 List<string> logical_operators = new List<string>();
-                var conditions = match.Groups[3].Value.Split(' ');
+                var conditions = match.Groups[3].Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string s in conditions)
+                {
+
+                }
                 for (int i = 0; i < conditions.Length; i++)
                 {
                     if (i % 4 == 0)

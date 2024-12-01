@@ -4,6 +4,7 @@ using FlightProject.FlightObjects;
 
 namespace FlightProject.FunctionalObjects
 {
+    // Purpose: Reference objects in the flight system.
     public class FlightReference
     {
         private readonly List<BaseObject> objectList;

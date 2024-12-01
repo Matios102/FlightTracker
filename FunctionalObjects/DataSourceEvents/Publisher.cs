@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using NetworkSourceSimulator;
 
+
+// Purpose: This class is responsible for notifying the subscribers about the updates coming from the network source simulator
 namespace FlightProject.FunctionalObjects.DaraSourceEvents
 {
     public class Publisher
@@ -12,9 +14,9 @@ namespace FlightProject.FunctionalObjects.DaraSourceEvents
 
         public Publisher(NetworkSourceSimulator.NetworkSourceSimulator networkSourceSimulator)
         {
-            networkSourceSimulator.OnContactInfoUpdate += notifyContactSubscribers;
-            networkSourceSimulator.OnIDUpdate += notifyIDSubscribers;
-            networkSourceSimulator.OnPositionUpdate += notifyPositionSubscribers;
+            networkSourceSimulator.OnContactInfoUpdate += notifyContactSubscribers; // This is the event that will be triggered when the contact info is updated
+            networkSourceSimulator.OnIDUpdate += notifyIDSubscribers; // This is the event that will be triggered when the ID is updated
+            networkSourceSimulator.OnPositionUpdate += notifyPositionSubscribers; // This is the event that will be triggered when the position is updated
         }
         public void subscribe(IUpdateContact subscriber)
         {
@@ -46,6 +48,7 @@ namespace FlightProject.FunctionalObjects.DaraSourceEvents
             Positionsubscribers.Remove(subscriber);
         }
 
+        // This method will notify the subscribers about the contact info update
         public void notifyContactSubscribers(object sender, ContactInfoUpdateArgs args)
         {
             foreach (var subscriber in Contactsubscribers)
@@ -54,6 +57,7 @@ namespace FlightProject.FunctionalObjects.DaraSourceEvents
             }
         }
 
+        // This method will notify the subscribers about the ID update
         public void notifyIDSubscribers(object sender, IDUpdateArgs args)
         {
             foreach (var subscriber in IDsubscribers)
@@ -62,6 +66,7 @@ namespace FlightProject.FunctionalObjects.DaraSourceEvents
             }
         }
 
+        // This method will notify the subscribers about the position update
         public void notifyPositionSubscribers(object sender, PositionUpdateArgs args)
         {
             foreach (var subscriber in Positionsubscribers)

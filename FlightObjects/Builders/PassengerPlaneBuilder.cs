@@ -1,5 +1,6 @@
 using System;
 
+// Builder pattern for PassengerPlane
 namespace FlightProject.FlightObjects.Builders
 {
     public class PassengerPlaneBuilder

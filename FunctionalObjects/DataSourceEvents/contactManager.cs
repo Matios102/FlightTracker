@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FlightProject.FlightObjects;
 using NetworkSourceSimulator;
 
+// Purpose: This class is responsible for updating the contact info of the crew or passenger
 namespace FlightProject.FunctionalObjects.DaraSourceEvents
 {
     public class contactManager : IUpdateContact

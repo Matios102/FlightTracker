@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-
+// Factory pattern for creating Flight objects from byte values
 namespace FlightProject.FlightObjects.Factories.Byte_FlightFactories
 {
     public class Byte_FlightFactory : Byte_Factory
@@ -92,6 +92,9 @@ namespace FlightProject.FlightObjects.Factories.Byte_FlightFactories
             flight.Longitude = 0.0f;
             flight.AMSL = 0.0f;
             flight.MapCoordRotation = 0.0f;
+            flight.CurrentSpeed = 0.0f;
+            flight.TotalDistance = 0.0f;
+            flight.TotalDurationInSeonds = 0.0f;
 
             return flight;
         }

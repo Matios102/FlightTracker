@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-
+// Factory pattern for creating Airport objects from byte values
 namespace FlightProject.FlightObjects.Factories.Byte_FlightFactories
 {
     public class Byte_AirportFactory : Byte_Factory

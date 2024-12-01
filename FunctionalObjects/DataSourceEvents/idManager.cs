@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FlightProject.FlightObjects;
 using NetworkSourceSimulator;
 
+// Purpose: This class is responsible for updating the ID of the object
 namespace FlightProject.FunctionalObjects.DaraSourceEvents
 {
     public class idManager : IUpdateID

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using FlightProject.FlightObjects;
 
+// Purpose: This class is responsible for reading the FTR file
 namespace FlightProject.FunctionalObjects
 {
     public class FileReader : baseFileManager

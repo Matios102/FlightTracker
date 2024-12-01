@@ -1,8 +1,6 @@
-
-
-
 using FlightProject.FlightObjects;
 
+// Purpose: This interface is used to implement the visitor pattern for radio provider.
 namespace FlightProject.FunctionalObjects.NewsProviders
 {
     public class Radio : INewsVisitor

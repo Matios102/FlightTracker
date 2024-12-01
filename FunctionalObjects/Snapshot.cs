@@ -9,8 +9,10 @@ using System.Text;
 
 namespace FlightProject.FunctionalObjects
 {
+    // Purpose: Represents a snapshot of the current state of the system.
     public class Snapshot : baseFileManager
     {
+        // List of all objects in the system
         public static List<BaseObject> objectList = new List<BaseObject>();
 
         public Snapshot()
@@ -33,10 +35,13 @@ namespace FlightProject.FunctionalObjects
             { "NFL", new Byte_FlightFactory() }
         };
 
+        // Event for adding new flights to the flights lists to be displayed
         public static event Action<Flight> newFlightReady;
 
+        // Delegate for network source simulator
         public delegate void OnNewDataReadyHandler(object sender, NewDataReadyArgs e, NetworkSourceSimulator.NetworkSourceSimulator networkSource);
 
+        // Method to manage the new data
         public static void snapshotManager(object sender, NewDataReadyArgs e, NetworkSourceSimulator.NetworkSourceSimulator networkSource)
         {
             Message message = networkSource.GetMessageAt(e.MessageIndex);
@@ -63,6 +68,7 @@ namespace FlightProject.FunctionalObjects
             }
         }
 
+        // Method to reference the flights to the airports, crew, load and plane
         public static void FlightReference()
         {
             FlightReference reference = new FlightReference(objectList);

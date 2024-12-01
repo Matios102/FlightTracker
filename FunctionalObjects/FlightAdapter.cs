@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FlightProject.FlightObjects;
 
-
+// Purpose: This class is responsible for adapting the flight data to the GUI
 namespace FlightProject.FunctionalObjects
 {
     public class FlightAdapter : FlightsGUIData

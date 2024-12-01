@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 
+// Purpose: This class is responsible for logging
 namespace FlightProject.FunctionalObjects.DaraSourceEvents
 {
     public class Logger

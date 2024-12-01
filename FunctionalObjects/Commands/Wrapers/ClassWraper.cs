@@ -3,6 +3,7 @@ using FlightProject.FlightObjects;
 using FlightProject.FunctionalObjects.Commands.Wrapers;
 using FlightProject.FunctionalObjects.Commands.Wrapers.Factories;
 
+// Purpose: This class is responsible for creating the class wraper for the different objects
 namespace FlightProject.FunctionalObjects.Commands
 {
 

@@ -1,6 +1,7 @@
 using System;
 namespace FlightProject.FlightObjects
 {
+    // Purpose: Represents a passenger.
     public class Passenger : BaseObject
     {
         public String Name { get; set; }

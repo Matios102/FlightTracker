@@ -1,4 +1,6 @@
 using System;
+
+// Factory pattern for creating Crew objects from string values
 namespace FlightProject.FlightObjects.Factories.String_FlightFactories
 {
     public class CrewFactory : Factory

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace FlightProject.FlightObjects
 {
+    // Purpose: Represents a flight.
     public class Flight : BaseObject
     {
         public Airport Origin { get; set; }
@@ -20,5 +21,13 @@ namespace FlightProject.FlightObjects
         public BasePlane Plane { get; set; }
 
         public double MapCoordRotation { get; set; }
+
+        public double CurrentSpeed { get; set; }
+
+        public double TotalDistance { get; set; }
+
+        public double TotalDurationInSeonds { get; set; }
+
+        public bool IsMarkedForRemoval { get; set; } = false;
     }
 }

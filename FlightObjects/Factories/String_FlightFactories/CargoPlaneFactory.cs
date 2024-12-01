@@ -1,5 +1,7 @@
 using System;
 
+
+// Factory pattern for creating CargoPlane objects from string values
 namespace FlightProject.FlightObjects.Factories.String_FlightFactories
 {
     public class CargoPlaneFactory : Factory

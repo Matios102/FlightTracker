@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FlightProject.FlightObjects;
 
+// Purpose: This class is responsible for creating the airport wraper containing the fields and their wrapers
 namespace FlightProject.FunctionalObjects.Commands.Wrapers.Factories
 {
     public class AirportWraperFactory : baseFactory

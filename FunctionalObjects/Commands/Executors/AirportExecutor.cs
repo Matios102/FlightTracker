@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ExCSS;
 using FlightProject.FlightObjects;
 using FlightProject.FlightObjects.Builders;
 
+// Purpose: This class is responsible for executing the airport commands
 namespace FlightProject.FunctionalObjects.Commands.Executors
 {
     public class AirportExecutor : Executor
@@ -22,7 +24,7 @@ namespace FlightProject.FunctionalObjects.Commands.Executors
             }
             if (properties.Count == 1 && properties[0] == "*")
             {
-                properties = new List<string> { "ID", "Name", "Code", "Longitude", "Latitude", "AMSL", "ISO"};
+                properties = new List<string> { "ID", "Name", "Code", "Longitude", "Latitude", "AMSL", "ISO"}; // All properties
             }
             PrintTable(airports, properties);
         }
@@ -59,7 +61,6 @@ namespace FlightProject.FunctionalObjects.Commands.Executors
                 builder.SetProperty(key, key_value[key]);
             }
             objects.Add(builder.Build());
-
         }
 
         public override void Delete(List<BaseObject> objects, List<Condition> conditions, List<string> logicalOperators)
@@ -68,8 +69,10 @@ namespace FlightProject.FunctionalObjects.Commands.Executors
             {
                 throw new ArgumentNullException();
             }
-            IEnumerable<BaseObject> toDelete = objects.OfType<Airport>();
-            if (conditions != null)
+            List<BaseObject> toDelete = objects.OfType<Airport>().Cast<BaseObject>().ToList();
+
+            // If conditions are empty, delete all objects
+            if (conditions.Count != 0)
             {
                 toDelete = applyConditions(toDelete, conditions, logicalOperators);
             }

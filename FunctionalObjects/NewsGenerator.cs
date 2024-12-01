@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+// Iterator patern for generating news from multiple providers
 namespace FlightProject.FunctionalObjects.NewsProviders
 {
     public class NewsGenerator : IEnumerable<string>
@@ -14,6 +16,7 @@ namespace FlightProject.FunctionalObjects.NewsProviders
             this.reportables = reportables;
         }
 
+        // Visit each provider and reportable object to generate news
         public string GenerateNextNews(INewsVisitor provider, IReportable reportableObject)
         {
             reportableObject.accept(provider);

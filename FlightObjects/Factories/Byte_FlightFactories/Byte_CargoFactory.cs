@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 
+// Factory pattern for creating Cargo objects from byte values
 namespace FlightProject.FlightObjects.Factories.Byte_FlightFactories
 {
     public class Byte_CargoFactory : Byte_Factory

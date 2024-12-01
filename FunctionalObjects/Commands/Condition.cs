@@ -1,4 +1,5 @@
 
+// Purpose: Represents the conditions in a query
 namespace FlightProject.FunctionalObjects.Commands
 {
     public class Condition
