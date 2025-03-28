@@ -15,5 +15,12 @@
     <PackageReference Include="FlightTrackerGUI" Version="1.0.0" />
   </ItemGroup>
 
+  <Target Name="CopyDataFiles" AfterTargets="Build">
+    <Copy SourceFiles="@(DataFiles)" DestinationFolder="$(OutputPath)Data\" />
+  </Target>
+
+  <ItemGroup>
+    <DataFiles Include="Data\**\*" />
+  </ItemGroup>
 
 </Project>

@@ -7,6 +7,16 @@ This project includes a variety of features, from reading data from files to sim
 
 ---
 
+## Screenshots
+
+### 1. **GUI Display**
+![GUI](screenshots/gui.png)
+
+### 2. **SQL-like Command Handling**
+![SQL-like Command Handling](screenshots/sql.png)
+
+---
+
 ## Features
 
 ### 1. **Object Creation & Serialization**
